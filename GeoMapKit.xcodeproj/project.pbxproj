@@ -10,9 +10,9 @@
 		4940CA2C293FD874008D5811 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4940CA2B293FD874008D5811 /* AppDelegate.swift */; };
 		4940CA2E293FD874008D5811 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4940CA2D293FD874008D5811 /* SceneDelegate.swift */; };
 		4940CA30293FD874008D5811 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4940CA2F293FD874008D5811 /* ViewController.swift */; };
-		4940CA33293FD874008D5811 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4940CA31293FD874008D5811 /* Main.storyboard */; };
 		4940CA35293FD876008D5811 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4940CA34293FD876008D5811 /* Assets.xcassets */; };
 		4940CA38293FD876008D5811 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4940CA36293FD876008D5811 /* LaunchScreen.storyboard */; };
+		4940CA47293FE81E008D5811 /* UserAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4940CA46293FE81E008D5811 /* UserAnnotation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,10 +20,10 @@
 		4940CA2B293FD874008D5811 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4940CA2D293FD874008D5811 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		4940CA2F293FD874008D5811 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		4940CA32293FD874008D5811 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4940CA34293FD876008D5811 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4940CA37293FD876008D5811 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4940CA39293FD876008D5811 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4940CA46293FE81E008D5811 /* UserAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAnnotation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +56,31 @@
 		4940CA2A293FD874008D5811 /* GeoMapKit */ = {
 			isa = PBXGroup;
 			children = (
+				4940CA40293FD89B008D5811 /* Delegate */,
+				4940CA2F293FD874008D5811 /* ViewController.swift */,
+				4940CA46293FE81E008D5811 /* UserAnnotation.swift */,
+				4940CA42293FD8E0008D5811 /* Default */,
+			);
+			path = GeoMapKit;
+			sourceTree = "<group>";
+		};
+		4940CA40293FD89B008D5811 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
 				4940CA2B293FD874008D5811 /* AppDelegate.swift */,
 				4940CA2D293FD874008D5811 /* SceneDelegate.swift */,
-				4940CA2F293FD874008D5811 /* ViewController.swift */,
-				4940CA31293FD874008D5811 /* Main.storyboard */,
+			);
+			path = Delegate;
+			sourceTree = "<group>";
+		};
+		4940CA42293FD8E0008D5811 /* Default */ = {
+			isa = PBXGroup;
+			children = (
 				4940CA34293FD876008D5811 /* Assets.xcassets */,
 				4940CA36293FD876008D5811 /* LaunchScreen.storyboard */,
 				4940CA39293FD876008D5811 /* Info.plist */,
 			);
-			path = GeoMapKit;
+			path = Default;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -126,7 +142,6 @@
 			files = (
 				4940CA38293FD876008D5811 /* LaunchScreen.storyboard in Resources */,
 				4940CA35293FD876008D5811 /* Assets.xcassets in Resources */,
-				4940CA33293FD874008D5811 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,6 +153,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4940CA30293FD874008D5811 /* ViewController.swift in Sources */,
+				4940CA47293FE81E008D5811 /* UserAnnotation.swift in Sources */,
 				4940CA2C293FD874008D5811 /* AppDelegate.swift in Sources */,
 				4940CA2E293FD874008D5811 /* SceneDelegate.swift in Sources */,
 			);
@@ -146,14 +162,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		4940CA31293FD874008D5811 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4940CA32293FD874008D5811 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		4940CA36293FD876008D5811 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -288,7 +296,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DP9VBDWN4S;
-				INFOPLIST_FILE = GeoMapKit/Info.plist;
+				INFOPLIST_FILE = GeoMapKit/Default/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -307,7 +315,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DP9VBDWN4S;
-				INFOPLIST_FILE = GeoMapKit/Info.plist;
+				INFOPLIST_FILE = GeoMapKit/Default/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
