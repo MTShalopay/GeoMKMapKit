@@ -9,21 +9,25 @@
 /* Begin PBXBuildFile section */
 		4940CA2C293FD874008D5811 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4940CA2B293FD874008D5811 /* AppDelegate.swift */; };
 		4940CA2E293FD874008D5811 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4940CA2D293FD874008D5811 /* SceneDelegate.swift */; };
-		4940CA30293FD874008D5811 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4940CA2F293FD874008D5811 /* ViewController.swift */; };
+		4940CA30293FD874008D5811 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4940CA2F293FD874008D5811 /* MapViewController.swift */; };
 		4940CA35293FD876008D5811 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4940CA34293FD876008D5811 /* Assets.xcassets */; };
 		4940CA38293FD876008D5811 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4940CA36293FD876008D5811 /* LaunchScreen.storyboard */; };
-		4940CA47293FE81E008D5811 /* UserAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4940CA46293FE81E008D5811 /* UserAnnotation.swift */; };
+		49C64E1C2940E2C400E357AE /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C64E1B2940E2C400E357AE /* Extension.swift */; };
+		49C64E28294120C500E357AE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C64E27294120C500E357AE /* User.swift */; };
+		49C64E2B2941225600E357AE /* ModelUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C64E2A2941225600E357AE /* ModelUser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4940CA28293FD874008D5811 /* GeoMapKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeoMapKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4940CA2B293FD874008D5811 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4940CA2D293FD874008D5811 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		4940CA2F293FD874008D5811 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4940CA2F293FD874008D5811 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		4940CA34293FD876008D5811 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4940CA37293FD876008D5811 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4940CA39293FD876008D5811 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4940CA46293FE81E008D5811 /* UserAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAnnotation.swift; sourceTree = "<group>"; };
+		49C64E1B2940E2C400E357AE /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		49C64E27294120C500E357AE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		49C64E2A2941225600E357AE /* ModelUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelUser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,8 +61,10 @@
 			isa = PBXGroup;
 			children = (
 				4940CA40293FD89B008D5811 /* Delegate */,
-				4940CA2F293FD874008D5811 /* ViewController.swift */,
-				4940CA46293FE81E008D5811 /* UserAnnotation.swift */,
+				4940CA2F293FD874008D5811 /* MapViewController.swift */,
+				49C64E1B2940E2C400E357AE /* Extension.swift */,
+				49C64E27294120C500E357AE /* User.swift */,
+				49C64E2A2941225600E357AE /* ModelUser.swift */,
 				4940CA42293FD8E0008D5811 /* Default */,
 			);
 			path = GeoMapKit;
@@ -152,8 +158,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4940CA30293FD874008D5811 /* ViewController.swift in Sources */,
-				4940CA47293FE81E008D5811 /* UserAnnotation.swift in Sources */,
+				49C64E1C2940E2C400E357AE /* Extension.swift in Sources */,
+				4940CA30293FD874008D5811 /* MapViewController.swift in Sources */,
+				49C64E28294120C500E357AE /* User.swift in Sources */,
+				49C64E2B2941225600E357AE /* ModelUser.swift in Sources */,
 				4940CA2C293FD874008D5811 /* AppDelegate.swift in Sources */,
 				4940CA2E293FD874008D5811 /* SceneDelegate.swift in Sources */,
 			);
