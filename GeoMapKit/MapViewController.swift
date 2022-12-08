@@ -12,11 +12,13 @@ import CoreLocation
 class MapViewController: UIViewController {
     let locationManager = CLLocationManager()
     let modelUser = ModelUser()
+    private var userAnnotations = [CustomPin]()
     
     private lazy var mapView: MKMapView = {
         let mapKit = MKMapView(frame: .zero)
         mapKit.translatesAutoresizingMaskIntoConstraints = false
-        mapKit.mapType = .satellite
+        mapKit.mapType = .standard
+        mapKit.showsCompass = true
         mapKit.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: NSStringFromClass(MKAnnotationView.self))
         mapKit.delegate = self
         return mapKit
@@ -38,6 +40,7 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
         title = "КАРТА"
         modelUser.addAnnotaion(in: mapView)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,6 +50,13 @@ class MapViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         checkLocationEnable()
+        setupLongGesture()
+    }
+    
+    private func setupLongGesture() {
+        let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(addPin(longGesture:)))
+        longGesture.minimumPressDuration = 2
+        mapView.addGestureRecognizer(longGesture)
     }
     
     private func setupView() {
@@ -95,8 +105,21 @@ class MapViewController: UIViewController {
         }
     }
     @objc func removeAnnotation() {
-        print(#function)
-        mapView.removeAnnotations(modelUser.users)
+        guard userAnnotations.count > 0 else { return }
+        userAnnotations.forEach {
+            mapView.removeAnnotation($0)
+        }
+        userAnnotations.removeAll()
+    }
+    
+    @objc func addPin(longGesture: UILongPressGestureRecognizer) {
+        guard longGesture.state == .began else { return }
+        let touchPoint = longGesture.location(in: mapView)
+        let newCoordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
+        let customPin = CustomPin(coordinate: newCoordinate, name: "Отметка пользователя")
+        userAnnotations.append(customPin)
+        mapView.addAnnotation(customPin)
+        
     }
 }
 
@@ -121,42 +144,30 @@ extension MapViewController: CLLocationManagerDelegate {
 extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard let annotation = annotation as? User else { return nil }
-        let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier:NSStringFromClass(MKAnnotationView.self))!
-        annotationView.annotation = annotation
         
-        let newImage = qwerty(image: annotation.image)
-        annotationView.image = newImage
-        annotationView.canShowCallout = true
-        annotationView.calloutOffset = CGPoint(x: 0, y: 10)
-        
-        let ageLabel = UILabel()
-        ageLabel.text = String(annotation.age)
-        annotationView.detailCalloutAccessoryView = ageLabel
-        annotationView.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-        return annotationView
+        if let userAnnotation = annotation as? CustomPin {
+            let newImage = qwerty(image: UIImage(named: "pin")!)
+        let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: NSStringFromClass(MKAnnotationView.self))!
+            creatMKAnnotationView(to: annotationView, annotation: userAnnotation, imagePin: newImage)
+            return annotationView
+        } else {
+            guard let annotationUser = annotation as? User else { return nil }
+            let newImage = qwerty(image: annotationUser.image)
+            let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier:NSStringFromClass(MKAnnotationView.self))!
+            creatMKAnnotationView(to: annotationView, annotation: annotationUser, imagePin: newImage)
+            return annotationView
+        }
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         guard let coordinate = locationManager.location?.coordinate else { return }
         mapView.removeOverlays(mapView.overlays)
-        let user = view.annotation as! User
-        let startPoint = MKPlacemark(coordinate: coordinate)
-        let endPoint = MKPlacemark(coordinate: user.coordinate)
-        let request = MKDirections.Request()
-        request.source = MKMapItem(placemark: startPoint)
-        request.destination = MKMapItem(placemark: endPoint)
-        request.transportType = .automobile
-        let direction = MKDirections(request: request)
-        direction.calculate { (response, error) in
-            if let error = error {
-                print("ERROR direction request: \(error)")
-            }
-            guard let response = response else { return }
-            for route in response.routes {
-                mapView.addOverlay(route.polyline)
-            }
+        guard let user = view.annotation as? User else {
+            guard let customPin = view.annotation as? CustomPin else { return }
+            creatingRoute(firstPoint: coordinate, secondPoint: customPin.coordinate, transpotType: .walking, to: mapView)
+            return
         }
+        creatingRoute(firstPoint: coordinate, secondPoint: user.coordinate, transpotType: .walking, to: mapView)
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {

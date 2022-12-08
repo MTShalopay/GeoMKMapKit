@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import AVFoundation
+import MapKit
 
 extension UIImage {
     func colorized(color : UIColor) -> UIImage {
@@ -49,5 +50,33 @@ extension UIViewController {
             image.draw(in: CGRect(origin: .zero, size: targetSize))
         }
         return resized
+    }
+}
+
+extension MKMapViewDelegate {
+    func creatingRoute(firstPoint: CLLocationCoordinate2D, secondPoint: CLLocationCoordinate2D, transpotType: MKDirectionsTransportType, to map: MKMapView) {
+         let startPoint = MKPlacemark(coordinate: firstPoint)
+         let endPoint = MKPlacemark(coordinate: secondPoint)
+         let request = MKDirections.Request()
+         request.source = MKMapItem(placemark: startPoint)
+         request.destination = MKMapItem(placemark: endPoint)
+         request.transportType = transpotType
+         let direction = MKDirections(request: request)
+         direction.calculate { (response, error) in
+             if let error = error {
+                 print("ERROR direction request: \(error)")
+             }
+             guard let response = response else { return }
+             for route in response.routes {
+                 map.addOverlay(route.polyline)
+                 }
+             }
+    }
+     func creatMKAnnotationView(to : MKAnnotationView, annotation: MKAnnotation, imagePin: UIImage) {
+         to.annotation = annotation
+         to.image = imagePin
+         to.canShowCallout = true
+         to.calloutOffset = CGPoint(x: 0, y: 10)
+         to.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
     }
 }
