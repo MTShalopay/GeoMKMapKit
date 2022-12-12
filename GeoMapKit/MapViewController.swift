@@ -108,7 +108,9 @@ class MapViewController: UIViewController {
         guard userAnnotations.count > 0 else { return }
         userAnnotations.forEach {
             mapView.removeAnnotation($0)
+            mapView.removeOverlays(mapView.overlays)
         }
+        
         userAnnotations.removeAll()
     }
     
@@ -131,9 +133,10 @@ extension MapViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last?.coordinate {
-            let region = MKCoordinateRegion(center: location, latitudinalMeters: 4000, longitudinalMeters: 4000)
-            mapView.setRegion(region, animated: true)
+          let camera = MKMapCamera(lookingAtCenter: location, fromDistance: 4000, pitch: 0, heading: 0)
+            mapView.setCamera(camera, animated: true)
         }
+       
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -144,7 +147,6 @@ extension MapViewController: CLLocationManagerDelegate {
 extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        
         if let userAnnotation = annotation as? CustomPin {
             let newImage = qwerty(image: UIImage(named: "pin")!)
         let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: NSStringFromClass(MKAnnotationView.self))!
@@ -164,10 +166,10 @@ extension MapViewController: MKMapViewDelegate {
         mapView.removeOverlays(mapView.overlays)
         guard let user = view.annotation as? User else {
             guard let customPin = view.annotation as? CustomPin else { return }
-            creatingRoute(firstPoint: coordinate, secondPoint: customPin.coordinate, transpotType: .walking, to: mapView)
+            creatingRoute(firstPoint: coordinate, secondPoint: customPin.coordinate, transpotType: .automobile, to: mapView)
             return
         }
-        creatingRoute(firstPoint: coordinate, secondPoint: user.coordinate, transpotType: .walking, to: mapView)
+        creatingRoute(firstPoint: coordinate, secondPoint: user.coordinate, transpotType: .automobile, to: mapView)
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
@@ -176,4 +178,5 @@ extension MapViewController: MKMapViewDelegate {
         renderer.lineWidth = 5
         return renderer
     }
+    
 }
